@@ -82,7 +82,7 @@ namespace R401TP2.Models.EntityFramework.Tests
         public void GetSerie_NotOk_ReturnsNotFound()
         {
             // Act
-            var result = controller.GetSerie(0);
+            var result = controller.GetSerie(1000);
             // Assert
             Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
         }
@@ -113,7 +113,7 @@ namespace R401TP2.Models.EntityFramework.Tests
             // Act
             var result = controller.DeleteSerie(1);
             // Assert
-            Assert.AreEqual((Serie)result.Result, serie1);
+            Assert.IsInstanceOfType(result.Result, typeof(NoContentResult));
         }
 
 
@@ -133,7 +133,7 @@ namespace R401TP2.Models.EntityFramework.Tests
             // Act
             var result = controller.PostSerie(serie1);
             // Assert
-            Assert.AreEqual(controller.GetSeries().Result.Value.Where(s => s.Serieid == 1).ToList()[0], serie1);
+            Assert.AreEqual(result.Result, serie1);
         }
 
 
@@ -142,7 +142,7 @@ namespace R401TP2.Models.EntityFramework.Tests
         public void PutSerie_NotOk_ReturnsAggregateException()
         {
             // Act
-            var result = controller.PostSerie(1, error1);
+            var result = controller.PutSerie(1, error1);
             // Assert
             Assert.IsInstanceOfType(result.Result, typeof(AggregateException));
         }
@@ -153,7 +153,7 @@ namespace R401TP2.Models.EntityFramework.Tests
             // Act
             var result = controller.PutSerie(1, serie1);
             // Assert
-            Assert.AreEqual(controller.GetSeries().Result.Value.Where(s => s.Serieid == 1).ToList()[0], serie1);
+            Assert.AreEqual((Serie)result.Result, serie1);
         }
 
 
