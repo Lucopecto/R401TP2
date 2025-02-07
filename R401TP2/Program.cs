@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using R401TP2.Models.EntityFramework;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<SeriesDbContext>(options =>
+  options.UseNpgsql(builder.Configuration.GetConnectionString("SchoolContext")));
+
 
 // Add services to the container.
 
